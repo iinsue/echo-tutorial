@@ -1,31 +1,11 @@
-# shadcn/ui monorepo template
+# 안토니오 SaaS AI Support Platform 강의
 
-This template is for creating a monorepo with shadcn/ui.
+출처 - https://www.youtube.com/watch?v=CAr02YlEJUc
 
-## Usage
+### 주요기능
+<img width="378" height="417" alt="image" src="https://github.com/user-attachments/assets/da6bf963-6583-4f82-9bad-73ebf983d482" />
 
-```bash
-pnpm dlx shadcn@latest init
-```
+자세한 사항은 Notion에 챕터별로 정리
 
-## Adding components
-
-To add components to your app, run the following command at the root of your `web` app:
-
-```bash
-pnpm dlx shadcn@latest add button -c apps/web
-```
-
-This will place the ui components in the `packages/ui/src/components` directory.
-
-## Tailwind
-
-Your `tailwind.config.ts` and `globals.css` are already set up to use the components from the `ui` package.
-
-## Using components
-
-To use the components in your app, import them from the `ui` package.
-
-```tsx
-import { Button } from "@workspace/ui/components/button"
-```
+기존 안토니오 코드와 완벽하게 똑같지 않음 주의!   
+하지만 기능은 동일하고 UX 개선
