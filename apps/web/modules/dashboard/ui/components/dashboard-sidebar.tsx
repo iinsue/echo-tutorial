@@ -117,8 +117,12 @@ export const DashboardSidebar = () => {
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton
                     asChild
-                    isActive={isActive(item.url)}
                     tooltip={item.title}
+                    isActive={isActive(item.url)}
+                    className={cn(
+                      isActive(item.url) &&
+                        "bg-gradient-to-b from-sidebar-primary to-[#0b63f3]! text-sidebar-primary-foreground! hover:to-[#0b63f3]/90!"
+                    )}
                   >
                     <Link href={item.url}>
                       <item.icon className="size-4" />
@@ -140,8 +144,12 @@ export const DashboardSidebar = () => {
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton
                     asChild
-                    isActive={isActive(item.url)}
                     tooltip={item.title}
+                    isActive={isActive(item.url)}
+                    className={cn(
+                      isActive(item.url) &&
+                        "bg-gradient-to-b from-sidebar-primary to-[#0b63f3]! text-sidebar-primary-foreground! hover:to-[#0b63f3]/90!"
+                    )}
                   >
                     <Link href={item.url}>
                       <item.icon className="size-4" />
@@ -163,8 +171,12 @@ export const DashboardSidebar = () => {
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton
                     asChild
-                    isActive={isActive(item.url)}
                     tooltip={item.title}
+                    isActive={isActive(item.url)}
+                    className={cn(
+                      isActive(item.url) &&
+                        "bg-gradient-to-b from-sidebar-primary to-[#0b63f3]! text-sidebar-primary-foreground! hover:to-[#0b63f3]/90!"
+                    )}
                   >
                     <Link href={item.url}>
                       <item.icon className="size-4" />

@@ -7,7 +7,7 @@ interface TranscriptMessage {
 }
 
 // Only for testing the Vapi API, otherwise customers will provide their own API keys.
-const PUBLIC_VAPI_KEY = "f0e7fcc9-aa0a-4fdf-b66e-9889b077806b";
+const PUBLIC_VAPI_KEY = "";
 
 export const useVapi = () => {
   const [vapi, setVapi] = useState<Vapi | null>(null);
@@ -68,7 +68,7 @@ export const useVapi = () => {
 
     if (vapi) {
       // Only for testing the Vapi API, otherwise customers will provide their own Assistant IDs
-      vapi.start("54abb873-9c0d-4c68-842f-ce0a9bb8c220");
+      vapi.start("");
     }
   };
 
