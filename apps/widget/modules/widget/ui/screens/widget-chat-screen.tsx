@@ -1,17 +1,19 @@
 "use client";
 
 import { z } from "zod";
-import { useAction, useQuery } from "convex/react";
 import { useForm } from "react-hook-form";
 import { useAtomValue, useSetAtom } from "jotai";
+import { useAction, useQuery } from "convex/react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ArrowLeftIcon, MenuIcon } from "lucide-react";
-
 import { useThreadMessages, toUIMessages } from "@convex-dev/agent/react";
 
 import { api } from "@workspace/backend/_generated/api";
 import { Button } from "@workspace/ui/components/button";
+import { DicebearAvatar } from "@workspace/ui/components/dicebear-avatar";
 import { WidgetHeader } from "@/modules/widget/ui/components/widget-header";
+import { useInfiniteScroll } from "@workspace/ui/hooks/use-infinite-scroll";
+import { InfiniteScrollTrigger } from "@workspace/ui/components/infinite-scroll-trigger";
 
 import {
   contactSessionIdAtomFamily,
@@ -87,6 +89,13 @@ export const WidgetChatScreen = () => {
     { initialNumItems: 10 }
   );
 
+  const { topElementRef, handleLoadMore, canLoadMore, isLoadingMore } =
+    useInfiniteScroll({
+      status: messages.status,
+      loadMore: messages.loadMore,
+      loadSize: 10,
+    });
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -127,6 +136,13 @@ export const WidgetChatScreen = () => {
 
       <AIConversation>
         <AIConversationContent>
+          <InfiniteScrollTrigger
+            canLoadMore={canLoadMore}
+            isLoadingMore={isLoadingMore}
+            onLoadMore={handleLoadMore}
+            ref={topElementRef}
+          />
+
           {toUIMessages(messages.results ?? [])?.map((message) => {
             return (
               <AIMessage
@@ -137,7 +153,13 @@ export const WidgetChatScreen = () => {
                   <AIResponse>{message.content}</AIResponse>
                 </AIMessageContent>
 
-                {/* TODO: Add Avatar component */}
+                {message.role === "assistant" && (
+                  <DicebearAvatar
+                    imageUrl="/logo.svg"
+                    seed="assistant"
+                    size={32}
+                  />
+                )}
               </AIMessage>
             );
           })}

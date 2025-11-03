@@ -18,8 +18,9 @@ import { api } from "@workspace/backend/_generated/api";
 import { Doc } from "@workspace/backend/_generated/dataModel";
 
 import {
-  contactSessionIdAtomFamily,
+  screenAtom,
   organizationIdAtom,
+  contactSessionIdAtomFamily,
 } from "../../atoms/widget-atoms";
 
 const formSchema = z.object({
@@ -28,6 +29,8 @@ const formSchema = z.object({
 });
 
 export const WidgetAuthScreen = () => {
+  const setScreen = useSetAtom(screenAtom);
+
   const organizationId = useAtomValue(organizationIdAtom);
   const setContactSessionId = useSetAtom(
     contactSessionIdAtomFamily(organizationId || "")
@@ -70,6 +73,7 @@ export const WidgetAuthScreen = () => {
     });
 
     setContactSessionId(contactSessionId);
+    setScreen("selection");
   };
 
   return (
