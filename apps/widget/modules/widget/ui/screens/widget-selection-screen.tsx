@@ -8,6 +8,7 @@ import { ChevronRightIcon, MessageSquareTextIcon } from "lucide-react";
 import { api } from "@workspace/backend/_generated/api";
 import { Button } from "@workspace/ui/components/button";
 import { WidgetHeader } from "@/modules/widget/ui/components/widget-header";
+
 import {
   screenAtom,
   errorMessageAtom,
@@ -15,6 +16,7 @@ import {
   organizationIdAtom,
   contactSessionIdAtomFamily,
 } from "../../atoms/widget-atoms";
+import { WidgetFooter } from "../components/widget-footer";
 
 export const WidgetSelectionScreen = () => {
   const setScreen = useSetAtom(screenAtom);
@@ -84,6 +86,8 @@ export const WidgetSelectionScreen = () => {
           <ChevronRightIcon />
         </Button>
       </div>
+
+      <WidgetFooter />
     </>
   );
 };
