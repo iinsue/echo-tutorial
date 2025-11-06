@@ -99,15 +99,23 @@ export const getMany = query({
 export const getOne = query({
   args: {
     conversationId: v.id("conversations"),
-    contactSessionId: v.id("contactSessions"),
   },
   handler: async (ctx, args) => {
-    const session = await ctx.db.get(args.contactSessionId);
+    const identity = await ctx.auth.getUserIdentity();
 
-    if (!session || session.expiresAt < Date.now()) {
+    if (identity === null) {
       throw new ConvexError({
         code: "UNAUTHORIZED",
-        message: "Invalid session",
+        message: "Identity not found",
+      });
+    }
+
+    const orgId = identity.orgId as string;
+
+    if (!orgId) {
+      throw new ConvexError({
+        code: "UNAUTHORIZED",
+        message: "Organization not found",
       });
     }
 
@@ -120,17 +128,25 @@ export const getOne = query({
       });
     }
 
-    if (conversation.contactSessionId !== session._id) {
+    if (conversation.organizationId !== orgId) {
       throw new ConvexError({
         code: "UNAUTHORIZED",
-        message: "Incorrect session",
+        message: "Invalid Organization ID",
+      });
+    }
+
+    const contactSession = await ctx.db.get(conversation.contactSessionId);
+
+    if (!contactSession) {
+      throw new ConvexError({
+        code: "NOT_FOUND",
+        message: "Contact Session not found",
       });
     }
 
     return {
-      _id: conversation._id,
-      status: conversation.status,
-      threadId: conversation.threadId,
+      ...conversation,
+      contactSession,
     };
   },
 });
