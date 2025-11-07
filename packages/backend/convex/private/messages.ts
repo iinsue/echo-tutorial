@@ -1,8 +1,8 @@
 import { generateText } from "ai";
+import { openai } from "@ai-sdk/openai";
 import { ConvexError, v } from "convex/values";
 import { saveMessage } from "@convex-dev/agent";
 import { paginationOptsValidator } from "convex/server";
-import { openai } from "@ai-sdk/openai";
 
 import { components } from "../_generated/api";
 import { action, mutation, query } from "../_generated/server";
@@ -95,6 +95,12 @@ export const create = mutation({
       throw new ConvexError({
         code: "BAD_REQUEST",
         message: "Conversation resolved",
+      });
+    }
+
+    if (conversation.status === "unresolved") {
+      await ctx.db.patch(args.conversationId, {
+        status: "escalated",
       });
     }
 
