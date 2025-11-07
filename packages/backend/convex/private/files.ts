@@ -6,7 +6,7 @@ import {
   vEntryId,
 } from "@convex-dev/rag";
 
-import rag from "../system/rag";
+import rag from "../system/ai/rag";
 import { Id } from "../_generated/dataModel";
 import { action, mutation } from "../_generated/server";
 import { extractTextContent } from "../lib/extractTextContent";

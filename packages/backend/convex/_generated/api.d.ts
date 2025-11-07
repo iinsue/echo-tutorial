@@ -21,7 +21,7 @@ import type * as system_ai_tools_escalateConversation from "../system/ai/tools/e
 import type * as system_ai_tools_resolveConversation from "../system/ai/tools/resolveConversation.js";
 import type * as system_contactSessions from "../system/contactSessions.js";
 import type * as system_conversations from "../system/conversations.js";
-import type * as system_rag from "../system/rag.js";
+import type * as system_rag from "../system/ai/rag.js";
 import type * as users from "../users.js";
 
 import type {
