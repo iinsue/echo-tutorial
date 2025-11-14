@@ -1,7 +1,7 @@
 import { atom } from "jotai";
 import { atomFamily, atomWithStorage } from "jotai/utils";
 
-import { Id } from "@workspace/backend/_generated/dataModel";
+import { Doc, Id } from "@workspace/backend/_generated/dataModel";
 
 import { WidgetScreen } from "@/modules/widget/types";
 
@@ -24,3 +24,5 @@ export const contactSessionIdAtomFamily = atomFamily(
 export const errorMessageAtom = atom<string | null>(null);
 export const loadingMessageAtom = atom<string | null>(null);
 export const conversationIdAtom = atom<Id<"conversations"> | null>(null);
+
+export const widgetSettingsAtom = atom<Doc<"widgetSettings"> | null>(null);
