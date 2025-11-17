@@ -50,6 +50,11 @@ export const create = action({
       });
     }
 
+    // This refreshes the user's session if they are within the threshold
+    await ctx.runMutation(internal.system.contactSessions.refresh, {
+      contactSessionId: args.contactSessionId,
+    });
+
     // TODO: Implement subscription check
     const shouldTriggerAgent = conversation.status === "unresolved";
 
