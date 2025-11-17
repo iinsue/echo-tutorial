@@ -1,13 +1,15 @@
 "use client";
 
 import { z } from "zod";
+import { toast } from "sonner";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { useAction, useMutation, useQuery } from "convex/react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { MoreHorizontalIcon, Wand2Icon } from "lucide-react";
+import { useAction, useMutation, useQuery } from "convex/react";
 import { toUIMessages, useThreadMessages } from "@convex-dev/agent/react";
 
+import { cn } from "@workspace/ui/lib/utils";
 import { api } from "@workspace/backend/_generated/api";
 import { Button } from "@workspace/ui/components/button";
 import { Id } from "@workspace/backend/_generated/dataModel";
@@ -32,6 +34,7 @@ import {
   AIMessageContent,
 } from "@workspace/ui/components/ai/message";
 
+import { Skeleton } from "@workspace/ui/components/skeleton";
 import { Form, FormField } from "@workspace/ui/components/form";
 import { AIResponse } from "@workspace/ui/components/ai/response";
 import { DicebearAvatar } from "@workspace/ui/components/dicebear-avatar";
@@ -39,8 +42,6 @@ import { useInfiniteScroll } from "@workspace/ui/hooks/use-infinite-scroll";
 import { InfiniteScrollTrigger } from "@workspace/ui/components/infinite-scroll-trigger";
 
 import { ConversationStatusButton } from "../components/conversation-status-button";
-import { cn } from "@workspace/ui/lib/utils";
-import { Skeleton } from "@workspace/ui/components/skeleton";
 
 interface Props {
   conversationId: Id<"conversations">;
@@ -86,6 +87,7 @@ export const ConversationIdView = ({ conversationId }: Props) => {
 
       form.setValue("message", response);
     } catch (error) {
+      toast.error("Something went wrong");
       console.error(error);
     } finally {
       setIsEnhancing(false);

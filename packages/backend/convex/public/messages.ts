@@ -55,8 +55,16 @@ export const create = action({
       contactSessionId: args.contactSessionId,
     });
 
+    const subscription = await ctx.runQuery(
+      internal.system.subscriptions.getByOrganizationId,
+      {
+        organizationId: conversation.organizationId,
+      }
+    );
+
     // TODO: Implement subscription check
-    const shouldTriggerAgent = conversation.status === "unresolved";
+    const shouldTriggerAgent =
+      conversation.status === "unresolved" && subscription?.status === "active";
 
     if (shouldTriggerAgent) {
       await supportAgent.generateText(
